@@ -13,21 +13,6 @@
 #include "Collision.h"  // Collider class
 #include "GameObject.h" // Parent
 
-/// Below is a stub function header
-
-/************************************************************************/
-	/**
-	  @brief
-
-
-	  @param param_name
-		...
-
-	  @return
-		...
-	*/
-/************************************************************************/
-
 //construct a collider box with the specified bounds
 ColliderBox::ColliderBox(float x, float y, float w, float h)
 {
@@ -46,10 +31,10 @@ ColliderBox::ColliderBox()
 	h = 0;
 }
 
-	/**
-	  @brief
-		Constructs an empty collider of type rectangle
-	*/
+/**
+ @brief	
+//Constructs an empty collider of type rectangle
+*/
 Collider::Collider() : Component(Type::Collider)
 {
 	radius_ = 0;
@@ -66,7 +51,7 @@ Collider::Collider() : Component(Type::Collider)
 
 /**
  @brief
-Constructs a collider component with the given boundaries
+	Constructs a collider component with the given boundaries
 */
 Collider::Collider(ColliderBox bounds, ColliderType type) : Component(Type::Collider)
 {
@@ -77,10 +62,10 @@ Collider::Collider(ColliderBox bounds, ColliderType type) : Component(Type::Coll
 	colliderType_ = type;
 }
 
-	/**
-	  @brief
-		Constructs a collider component with the given radius
-	*/
+/**
+@brief
+	Constructs a collider component with the given radius
+*/
 Collider::Collider(float radius, ColliderType type) : Component(Type::Collider)
 {
 	radius_ = radius;
@@ -96,7 +81,7 @@ Collider::Collider(float radius, ColliderType type) : Component(Type::Collider)
 };
 
 /**
-  @brief
+@brief
 	Constructs a collider component with the given height/width, collider will be
 	from the top left
 */
@@ -114,10 +99,10 @@ Collider::Collider(float width, float height, ColliderType type) : Component(Typ
 	colliderType_ = type;	//collider type
 };
 
-	/**
-	  @brief
-		Constructs a collider component with the given boundaries, offsets are from TOP LEFT of the sprite of the object
-	*/
+/**
+@brief
+	Constructs a collider component with the given boundaries, offsets are from TOP LEFT of the sprite of the object
+*/
 Collider::Collider(float offsetX, float offsetY, float width, float height, ColliderType type) : Component(Type::Collider)
 {
 	radius_ = 0;
@@ -132,7 +117,7 @@ Collider::Collider(float offsetX, float offsetY, float width, float height, Coll
 	colliderType_ = type;	//collider type
 };
 
-//needed, but can be left blank
+//needed, but can be left blank for now
 void Collider::Update(float dt)
 {
 
@@ -160,13 +145,13 @@ bool Collider::collidingWithCircle(Collider* other)
 	// Check if they are colliding
 	if ((radius_ + other->getRadius()) > connectingVector.length())
 	{
-		//set collision side
+		//set collision side to determine where the object was hit
 		other->setHorizontalCollisionSide(ColliderSide::INSIDE);
 		other->setVerticalCollisionSide(ColliderSide::INSIDE);
 		return true;
 	}
 
-	//set collision side
+	//set collision side to none here, since there was no collision
 	other->setHorizontalCollisionSide(ColliderSide::NONE);
 	other->setVerticalCollisionSide(ColliderSide::NONE);
 
@@ -212,34 +197,38 @@ bool Collider::HorizontalCollision(Vector worldPos, Vector otherWorldPos, Collid
 		//collision from the right occurred
 		if (worldPos.getX() + bounds_.w > otherWorldPos.getX())
 		{
+			//set the collision side, and side of the other object
 			setHorizontalCollisionSide(ColliderSide::RIGHT);
 			other->setHorizontalCollisionSide(ColliderSide::LEFT);
 			return true;
 		}
 
-		//means no collision
+		//code reaching here means no collision
 		else
 		{
+			//set the collision sides to none
 			setHorizontalCollisionSide(ColliderSide::NONE);
 			other->setHorizontalCollisionSide(ColliderSide::NONE);
 			return false;
 		}
 	}
 
-	//on right side of other object
+	//this means the collider component is on right side of other object
 	else
 	{
-		//collision from left side
+		//collision from left side occurred
 		if (worldPos.getX() < otherWorldPos.getX() +  other->bounds_.x)
 		{
+			//set collision side for objects
 			setHorizontalCollisionSide(ColliderSide::LEFT);
 			other->setHorizontalCollisionSide(ColliderSide::RIGHT);
 			return true;
 		}
 
-		//no collision, too far
+		//no collision occurred, too far to the side
 		else
 		{
+			//update collision sides
 			setHorizontalCollisionSide(ColliderSide::NONE);
 			other->setHorizontalCollisionSide(ColliderSide::NONE);
 			return false;
@@ -249,22 +238,25 @@ bool Collider::HorizontalCollision(Vector worldPos, Vector otherWorldPos, Collid
 	return false;
 }
 
+//helper function to check for vertical collision
 bool Collider::VerticalCollision(Vector worldPos, Vector otherWorldPos, Collider* other)
 {
-	//on top of the other object
+	//on top of the other object (above)
 	if (worldPos.getY() < otherWorldPos.getY())
 	{
 		//collision from the bottom occurred, other object is below
 		if (worldPos.getY() + bounds_.h >= otherWorldPos.getY())
 		{
+			//set collision sides
 			setVerticalCollisionSide(ColliderSide::BOTTOM);
 			other->setVerticalCollisionSide(ColliderSide::TOP);
 			return true;
 		}
 
-		//means no collision
+		//code reaching here means no collision
 		else
 		{
+			//update collision sides to none
 			setVerticalCollisionSide(ColliderSide::NONE);
 			other->setVerticalCollisionSide(ColliderSide::NONE);
 			return false;
@@ -277,14 +269,16 @@ bool Collider::VerticalCollision(Vector worldPos, Vector otherWorldPos, Collider
 		//collision from the top side (other object is above)
 		if (worldPos.getY() <= otherWorldPos.getY() + other->bounds_.h)
 		{
+			//update the collider sides
 			setVerticalCollisionSide(ColliderSide::TOP);
 			other->setVerticalCollisionSide(ColliderSide::BOTTOM);
 			return true;
 		}
 
-		//no collision, too far
+		//no collision, too far up or down
 		else
 		{
+			//update collider sides to none
 			setVerticalCollisionSide(ColliderSide::NONE);
 			other->setVerticalCollisionSide(ColliderSide::NONE);
 			return false;
@@ -297,10 +291,11 @@ bool Collider::VerticalCollision(Vector worldPos, Vector otherWorldPos, Collider
 //if the collider is colliding using rectangular collision (bounds)
 bool Collider::collidingWithRect(Collider* other)
 {
+	//obtain relative position of objects
 	Transform* transform = Parent()->Get<Transform>();
 	Transform* otherTransform = other->Parent()->Get<Transform>();
 
-	//calculate position with collision box offset
+	//calculate position with collision box offset (actual world position)
 	Vector offset(bounds_.x, bounds_.y);
 	Vector worldPos = transform->getTranslation() + offset;
 
@@ -314,6 +309,7 @@ bool Collider::collidingWithRect(Collider* other)
 		//Check for vertical collision
 		if (VerticalCollision(worldPos, otherWorldPos, other))
 		{
+			//this means the objects collided
 			return true;
 		}
 	}
