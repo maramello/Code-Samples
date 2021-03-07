@@ -2,12 +2,10 @@
 /**
 @file   lariat.h
 @author Rohit Saini
-@par    email: r.saini\@digipen.edu
-@par    DigiPen login: r.saini
-@par    Course: CS280
 @date   2/14/2021
 @brief
-  This file contains the definition of functions for the Lariat class
+  This file contains the definition of functions for the Lariat class, a
+  templatized linked list of arrays.
 */
 /*****************************************************************************/
 ////////////////////////////////////////////////////////////////////////////////
