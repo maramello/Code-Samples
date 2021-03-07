@@ -5,7 +5,7 @@
 @date   2/14/2021
 @brief
   This file contains implementation of functions for the Lariat class, a
-  linked list of arrays. Templatized.
+  templatized linked list of arrays.
 */
 /*****************************************************************************/
 #include <iostream>
