@@ -2,6 +2,8 @@
 	/*!
 	@file   Vector.h
 	@author Rohit Saini
+	@par    Course: GAM200
+	@par    Copyright 2020 Digipen Institute of Technology
 	@date   09/03/2020
 	@brief
 	  contains vector functions
@@ -10,6 +12,7 @@
 
 #pragma once
 #include <string>
+#include "Trace.h"
 
 // The vector class
 class Vector
@@ -49,7 +52,7 @@ class Vector
 
 		//scaling a vector by a constant
 		Vector operator*(float scale) const;
-
+		
 		//dot product of 2 vectors
 		float operator*(const Vector& v) const;
 
@@ -80,6 +83,18 @@ class Vector
 		//returns the y value of the vector
 		float getY() const;
 
+		// Sets the new x component to the given one
+		void setX(float x);
+
+		// Sets the new y component to the given one
+		void setY(float y);
+
+		//render vector (x, y) as slider for i am gui
+		void RenderForImGui();
+
+		//returns whether the vector has the value 0,0
+		bool isZeroVector();
+
 		//returns the vector x as a specific integral type
 		template<typename T>
 		T getX() const
@@ -93,6 +108,21 @@ class Vector
 		{
 			return (T) y_;
 		}
+
+		Vector& Zero() { x_ = 0.0f; y_ = 0.0f; return *this; }
+
+		// Prints a debug message with this vectors values
+		void Print(const char *label) const {
+			Trace::Log("Vector", "%s: [%.1f, %.1f]", label, x_, y_);
+		}
+
+		Vector& operator-() {
+			x_ = -x_;
+			y_ = -y_;
+			return *this;
+		}
+
+		Vector operator-() const { return Vector(-x_, -y_); }
 
 	private:
 
