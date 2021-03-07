@@ -5,7 +5,7 @@
 \par    email: rohitsaini429@gmail.com
 \brief
     This file contains the implementation of the following functions for a
-    Linked List implementation.
+    templated Linked List implementation.
 
     Functions include:
 
