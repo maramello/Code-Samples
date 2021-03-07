@@ -5,8 +5,8 @@
 \par    email: rohitsaini429@gmail.com
 
 \brief
-    This file contains the definition of functions for the a Linked List
-    implementation in C++.
+    This file contains the definition of functions for the a templated 
+    Linked List implementation in C++.
 */
 /*****************************************************************************/
 #ifndef LIST_H
