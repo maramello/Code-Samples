@@ -2,11 +2,9 @@
 	/*!
 	@file   Vector.cpp
 	@author Rohit Saini
-	@par    Course: GAM200
-	@par    Copyright 2020 Digipen Institute of Technology
 	@date   09/03/2020
 	@brief
-	  contains vector functions
+	  contains implementation of vector functions with overloads.
 	*/
 /**************************************************************************/
 #include "Vector.h"
@@ -30,18 +28,7 @@ Vector::Vector(int x, int y)
 	y_ = (float) y;
 }
 
-/************************************************************************/
-	/*!
-	  @brief
-		Adds this vector to the given vector.
-
-	  @param v
-		The vector to add.
-
-	  \return
-		A new vector containing the sum of this and the given vector.
-	*/
-/************************************************************************/
+//Adds this vector to the given vector.
 Vector Vector::operator+(const Vector& v) const
 {
 	return Vector(x_ + v.x_, y_ + v.y_);
