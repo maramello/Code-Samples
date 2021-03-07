@@ -2,11 +2,10 @@
 	/*!
 	@file   Vector.h
 	@author Rohit Saini
-	@par    Course: GAM200
-	@par    Copyright 2020 Digipen Institute of Technology
 	@date   09/03/2020
 	@brief
-	  contains vector functions
+	  contains vector functions, simple and efficient implementation
+	  of operators and overloads with templates.
 	*/
 /**************************************************************************/
 
