@@ -2,6 +2,8 @@
 	/*!
 	@file   Vector.cpp
 	@author Rohit Saini
+	@par    Course: GAM200
+	@par    Copyright 2020 Digipen Institute of Technology
 	@date   09/03/2020
 	@brief
 	  contains vector functions
@@ -12,6 +14,7 @@
 #include <math.h>
 #include <iomanip>
 #include <sstream>
+#include "imgui.h"
 
 //Creates a vector with specified x and y values
 Vector::Vector(float x, float y)
@@ -149,7 +152,7 @@ std::string Vector::toString() const
 
 	//return the whole string
 	return "(" + stream.str() + ", " + stream2.str() + ")";
-
+	
 }
 
 //sets the vector values to the parameters
@@ -169,6 +172,15 @@ float Vector::getX() const
 float Vector::getY() const
 {
 	return y_;
+}
+
+//returns whether the vector has the value 0,0
+bool Vector::isZeroVector()
+{
+	if (x_ == 0 && y_ == 0)
+		return true;
+
+	return false;
 }
 
 //checks inequality between 2 vectors
@@ -193,4 +205,28 @@ bool Vector::operator==(const Vector& v) const
 		return false;
 
 	return true;
+}
+
+// Sets the new x component to the given one
+void Vector::setX(float x)
+{
+	x_ = x;
+}
+
+// Sets the new y component to the given one
+void Vector::setY(float y)
+{
+	y_ = y;
+}
+
+//render vector for imgui
+void Vector::RenderForImGui()
+{
+	float* vals[2];
+
+	vals[0] = &x_;
+	vals[1] = &y_;
+
+	//ImGui::SliderFloat2("Vector", vals[0], -2000.0f, 10000.0f, "%.3f");
+	ImGui::DragFloat2("Vector", vals[0], 0.5f, -10000.0f, 10000.0f, "%.3f");
 }
