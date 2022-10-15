@@ -105,7 +105,7 @@ void Lariat<T, Size>::split(LNode* fullNode, int localIndex)
 
     fullNode->next = newNode;
 
-    //get correct new number of elements after split for the full node
+    //Get correct new number of elements after split for the full node
     int newCount = asize_ / 2; // assume a start in the middle
 
     // even numbered array size and insertion will be in the next node (not this one)
