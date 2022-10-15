@@ -86,7 +86,7 @@ class Lariat
         void pop_back();
         void pop_front();
 
-        //access
+        //Access
         T&       operator[](int index);       // for l-values
         const T& operator[](int index) const; // for r-values
         T&       first();
