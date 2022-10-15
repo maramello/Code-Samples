@@ -20,31 +20,33 @@
 //!Lariat exception class
 class LariatException : public std::exception {
   private:
-    //! err code no
+    //err code and description, for debug aid
     int m_ErrCode;
-    //!  description
     std::string m_Description;
 
   public:
-    //! constructor
+    //Constructor
     LariatException(int ErrCode, const std::string& Description) :
         m_ErrCode(ErrCode), m_Description(Description) {}
-    //! code get
+  
+    //Get the error cdoe
     virtual int code(void) const { 
       return m_ErrCode; 
     }
-    //! description get
+  
+    //Get the error description
     virtual const char *what(void) const throw() {
       return m_Description.c_str();
     }
-        //! destructor
+    //Destructor
     virtual ~LariatException() throw() {
     }
-    //! enum
+  
+    //Enum declarations for types of errors
     enum LARIAT_EXCEPTION {E_NO_MEMORY, E_BAD_INDEX, E_DATA_ERROR};
 };
 
-//! class forward declaration
+//Class forward declaration
 template<typename T, int Size> 
 class Lariat;
 
@@ -56,7 +58,7 @@ class Lariat
 {
     public:
 
-        Lariat();                  // default constructor                        
+        Lariat();                   // default constructor                        
         Lariat( Lariat const& rhs); // copy constructor
 
          template<class T2, int Size2>
@@ -69,7 +71,8 @@ class Lariat
 
         // operator=
         Lariat& operator=( Lariat const& rhs);
-
+        
+        //assignment operator from separate class of a different size
         template<class T2, int Size2>
         Lariat& operator=(Lariat<T2, Size2> const& rhs);
 
@@ -91,13 +94,13 @@ class Lariat
         T&       last();
         T const& last() const;
 
-        unsigned find(const T& value) const;       // returns index, size (one past last) if not found
+        unsigned find(const T& value) const;   // returns index, size (one past last) if not found
 
+        //output operator
         friend std::ostream& operator<< <T,Size>( std::ostream &os, Lariat<T, Size> const & list );
 
-        // and some more
         size_t size(void) const;   // total number of items (not nodes)
-        void clear(void);          // make it empty
+        void clear(void);          // clear data
 
         void compact();             // push data in front reusing empty positions and delete remaining nodes
     private:
@@ -126,7 +129,6 @@ class Lariat
         //swaps 2 values
         void SwapValues(T& A, T& B);
 
-        // DO NOT modify provided code
         LNode *head_;           // points to the first node
         LNode *tail_;           // points to the last node
         int size_;              // the number of items (not nodes) in the list
