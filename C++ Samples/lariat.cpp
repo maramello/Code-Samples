@@ -11,8 +11,6 @@
 #include <iostream>
 #include <iomanip>
 
-#if 1
-
 //Helper functions
 
 /**************************************************************************/
@@ -801,6 +799,7 @@ T const& Lariat<T, Size>::last() const
 template <typename T, int Size>
 void Lariat<T, Size>::push_back(const T& value)
 {
+    //pushing at the start if there is no head pointer
     if (head_ == nullptr)
     {
         head_ = new LNode;
@@ -809,12 +808,14 @@ void Lariat<T, Size>::push_back(const T& value)
         head_->prev = nullptr;
         tail_ = head_;
     }
-
+    
+    //if size is reached, split
     if (tail_->count == asize_)
     {
         split(tail_, asize_ - 1);
     }
-
+    
+    //push using the tail
     tail_->values[tail_->count] = value;
     tail_->count++;
     size_++;
@@ -873,7 +874,6 @@ void Lariat<T, Size>::push_front(const T& value)
     size_++;
 }
 
-
 /**************************************************************************/
 /**
  * @brief
@@ -905,5 +905,3 @@ std::ostream& operator<<( std::ostream &os, Lariat<T, Size> const & list )
     }
     return os;
 }
-#else // fancier 
-#endif
