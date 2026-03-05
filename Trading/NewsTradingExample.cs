@@ -44,8 +44,8 @@ namespace NinjaTrader.NinjaScript.Strategies
 		{
 			if (State == State.SetDefaults)
 			{
-				Description = @"Place bracket orders before news release with automatic stop loss and profit target.";
-				Name = "NewsFullporter";
+				Description = @"Place bracket orders before a specific timed release with automatic stop loss and profit target management.";
+				Name = "NewsTradingExample";
 				
 				// Allow unmanaged orders
 				IsUnmanaged = true;
